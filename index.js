@@ -59,6 +59,9 @@ if (JSON.parse(localStorage.getItem('todolist'))) {
 }
 const newTodoList = new TodoList(todolist);
 const todoItems = document.getElementsByClassName('todolist')[0];
+const save = () => {
+  localStorage.setItem('todolist', JSON.stringify(newTodoList));
+}
 
 const sortedTodoList = todolist.sort((a, b) => a.index - b.index);
 
@@ -84,7 +87,7 @@ const addTask = (e) => {
     const description = newItem.value.trim();
     const index = todolist.length + 1;
     newTodoList.addTask(description, index);
-    localStorage.setItem('todolist', JSON.stringify(newTodoList));
+    save();
     newItem.value = '';
   }
   window.location.reload();
@@ -104,14 +107,14 @@ editTaskButton.forEach((elm) => {
   element.addEventListener('focusout', () => {
     if (element.innerHTML) {
       newTodoList.editTask(element.innerHTML, element.className);
-      localStorage.setItem('todolist', JSON.stringify(newTodoList));
+      save();
       element.contentEditable = false;
     }
   });
   element.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && element.innerHTML) {
       newTodoList.editTask(element.innerHTML, element.className);
-      localStorage.setItem('todolist', JSON.stringify(newTodoList));
+      save();
       element.contentEditable = false;
     }
   });
@@ -122,7 +125,7 @@ const removeButton = document.querySelectorAll('.remove-button');
 const removeTask = (e) => {
   const index = e.target.parentNode.parentNode.id;
   newTodoList.removeTask(index);
-  localStorage.setItem('todolist', JSON.stringify(newTodoList));
+  save();
   window.location.reload();
 };
 
@@ -133,7 +136,7 @@ const checkBox = (e) => {
   const task = newTodoList.getTaskByIndex(i);
   toggleStatus(task);
   newTodoList.todolist[i - 1] = task;
-  localStorage.setItem('todolist', JSON.stringify(newTodoList));
+  save();
 };
 
 const tasks = document.querySelectorAll('.task');
@@ -151,7 +154,7 @@ const clearCompleted = () => {
     return { ...object, index };
   });
   newTodoList.todolist = sortedList;
-  localStorage.setItem('todolist', JSON.stringify(newTodoList));
+  save();
   window.location.reload();
 };
 
