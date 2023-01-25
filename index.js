@@ -2,13 +2,9 @@
 
 const toggleStatus = (task) => { task.completed = !(task.completed); };
 
-export default toggleStatus;
-
 //TODO.JS
 
-import Todo from './todoConst.js';
-
-export default class TodoList {
+class TodoList {
   constructor(todolist) {
     this.todolist = todolist;
   }
@@ -47,7 +43,7 @@ export default class TodoList {
 
 //TODOCONST.JS
 
-export default class Todo {
+class Todo {
   constructor(description, index) {
     this.description = description;
     this.index = index;
@@ -56,10 +52,6 @@ export default class Todo {
 }
 
 //INDEX.JS
-
-import './style.css';
-import TodoList from './modules/todo.js';
-import toggleStatus from './modules/clear.js';
 
 let todolist = [];
 if (JSON.parse(localStorage.getItem('todolist'))) {
